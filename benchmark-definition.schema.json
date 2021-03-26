@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "Benchmark Definition Schema",
+  "definitions": {
+    "generators": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/scalar-attribute"
+            }
+          }
+        },
+        "required": [
+          "path",
+          "method",
+          "attributes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "scalar-attribute": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "integer",
+            "boolean",
+            "number"
+          ]
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ]
+    },
+    "grouped-attribute": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "grouped"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": {
+        "$ref": "#/definitions/scalar-attribute"
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "const": "definition"
+    },
+    "template": {
+      "type": "string"
+    },
+    "generators": {
+      "$ref": "#/definitions/generators"
+    },
+    "arguments": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/scalar-attribute"
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/scalar-attribute"
+          },
+          {
+            "$ref": "#/definitions/grouped-attribute"
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "type",
+    "template",
+    "generators",
+    "arguments",
+    "parameters"
+  ],
+  "data": {
+  }
+}

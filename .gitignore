@@ -8,3 +8,6 @@ shell.nix
 
 # IntelliJ
 .idea
+
+# Python
+__pycache__
