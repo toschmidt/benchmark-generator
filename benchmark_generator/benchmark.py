@@ -75,6 +75,5 @@ def generate_benchmark(benchmark: str, cpp: str):
                                                                                      schema_dir)
 
         benchmarks.append(benchmark)
-        print(benchmark)
 
     write_benchmark(template, cpp, benchmarks)
