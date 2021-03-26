@@ -1,8 +1,8 @@
 import argparse
 import sys
 
-from benchmark import generate_benchmark
-from schema import generate_schema
+from .benchmark import generate_benchmark
+from .schema import generate_schema
 
 
 def parse_arguments():

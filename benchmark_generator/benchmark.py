@@ -6,7 +6,7 @@ import os
 from jsonschema import validate
 from jinja2 import Template
 
-from parameter_generators import parameter_generators
+from .parameter_generators import parameter_generators
 
 
 def read_benchmark(path: str):

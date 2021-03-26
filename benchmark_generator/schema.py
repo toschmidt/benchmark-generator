@@ -3,7 +3,7 @@ import json
 from jsonschema import validate
 import pkgutil
 
-from parameter_generators import parameter_generators
+from .parameter_generators import parameter_generators
 
 
 def read_definition(path: str):
