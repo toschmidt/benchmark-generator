@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.19)
 set(BENCHMARK_GENERATOR ${CMAKE_CURRENT_LIST_DIR}/benchmark-generator.py)
 
 function(generate_benchmarks_from_folder folder BENCHMARKS)
