@@ -1,5 +1,6 @@
 import copy
 import importlib
+import itertools
 import json
 import os
 
@@ -31,6 +32,19 @@ def merge(object1, object2, key: str):
                 if subkey not in object1[key]:
                     object1[key][subkey] = copy.deepcopy(object2[key][subkey])
     return object1
+
+
+def flatten_benchmark(benchmark):
+    flattened_benchmarks = [benchmark]
+    for key in benchmark.keys():
+        if isinstance(benchmark[key], list):
+            tmp_list = []
+            for (b, argument) in itertools.product(flattened_benchmarks, benchmark[key]):
+                b = copy.deepcopy(b)
+                b[key] = argument
+                tmp_list.append(b)
+            flattened_benchmarks = tmp_list
+    return flattened_benchmarks
 
 
 def execute_argument_generator(name, arguments, schema_dir):
@@ -73,7 +87,7 @@ def generate_benchmark(benchmark: str, cpp: str):
                 benchmark['parameters'][parameter_name] = execute_argument_generator(parameter_value['generator'],
                                                                                      parameter_value['attributes'],
                                                                                      schema_dir)
-
-        benchmarks.append(benchmark)
+        for flattened in flatten_benchmark(benchmark):
+            benchmarks.append(flattened)
 
     write_benchmark(template, cpp, benchmarks)

@@ -70,7 +70,12 @@ def generate_schema(definition: str, out: str):
         if 'enum' in value:
             attribute_schema['enum'] = value['enum']
 
-        schema['properties']['benchmarks']['items']['properties'][key] = attribute_schema
+        schema['properties']['benchmarks']['items']['properties'][key] = {
+            'anyOf': [
+                attribute_schema,
+                {'type': 'array', 'items': attribute_schema, 'minItems': 1}
+            ]
+        }
         schema['properties']['benchmarks']['items']['required'].append(key)
 
     for key, value in dict(definition['generators'], **parameter_generators).items():
