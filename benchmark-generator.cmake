@@ -1,7 +1,11 @@
-cmake_minimum_required(VERSION 3.19)
 set(BENCHMARK_GENERATOR ${CMAKE_CURRENT_LIST_DIR}/benchmark-generator.py)
 
 function(generate_benchmarks_from_folder folder BENCHMARKS)
+    if (${CMAKE_VERSION} VERSION_LESS "3.19")
+        message(WARNING "Cannot generate benchmarks CMake 3.19 or higher is required. You are running version ${CMAKE_VERSION}")
+        return()
+    endif ()
+
     file(GLOB_RECURSE jsons RELATIVE ${folder} *.json)
 
     foreach (json ${jsons})
