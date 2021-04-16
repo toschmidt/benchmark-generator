@@ -4,7 +4,6 @@ function(generate_benchmarks_from_folder folder BENCHMARKS)
     if (${CMAKE_VERSION} VERSION_LESS "3.19")
         message(WARNING "Cannot generate benchmarks CMake 3.19 or higher is required. You are running version ${CMAKE_VERSION}")
         message(WARNING "Using second last filename extension instead (deprecated)")
-        return()
     endif ()
 
     file(GLOB_RECURSE jsons RELATIVE ${folder} *.json)
